@@ -60,7 +60,7 @@ function translatable_menu_link_uri_entity_base_field_info(EntityTypeInterface $
  */
 function translatable_menu_link_uri_preprocess(&$variables, $hook) {
   // Let's apply this on menu theme (menu block).
-  if ($hook == 'menu') {
+  if ($hook === 'menu' || preg_match('%^menu__%', $hook)) {
 
     // Iterate through all items in menu tree.
     foreach ($variables['items'] as &$item) {
