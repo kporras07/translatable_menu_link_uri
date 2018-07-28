@@ -83,7 +83,12 @@ function translatable_menu_link_uri_preprocess(&$variables, $hook) {
         /** @var Drupal\link\Plugin\Field\FieldType\LinkItem $url */
         $url = $translated_entity->link_override->first();
         $item['url'] = $url->isEmpty() ? $item['url'] : $url->getUrl();
-        $item['url']->setOptions($options);
+        if (!empty($options)) {
+          // Inherit only options that have not been overridden.
+          $overridden_options = $item['url']->getOptions();
+          $overridden_options += $options;
+          $item['url']->setOptions($overridden_options);
+        }
       }
     }
   }
