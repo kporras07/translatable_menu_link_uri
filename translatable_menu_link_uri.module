@@ -54,9 +54,9 @@ function translatable_menu_link_uri_entity_base_field_info(EntityTypeInterface $
 }
 
 /**
- * Implements hook_preprocess().
+ * Implements hook_preprocess_menu().
  */
-function translatable_menu_link_uri_preprocess(&$variables, $hook) {
+function translatable_menu_link_uri_preprocess_menu(&$variables, $hook) {
   // Let's apply this on menu theme (menu block).
   if ($hook === 'menu' || preg_match('%^menu__%', $hook)) {
     // Iterate through all items in menu tree.
