@@ -95,7 +95,9 @@ function translatable_menu_link_uri_iterate_menu(&$item) {
 
       /** @var Drupal\link\Plugin\Field\FieldType\Linkitem $url */
       $url = $translated_entity->link_override->first();
-      $item['url'] = $url->isEmpty() ? $item['url'] : $url->getUrl();
+      if ($url !== NULL) {
+        $item['url'] = $url->isEmpty() ? $item['url'] : $url->getUrl();
+      }
 
       if (!empty($options)) {
         // Inherit only options that have not been overridden.
