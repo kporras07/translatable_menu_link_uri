@@ -5,6 +5,7 @@
  * Contains translatable_menu_link_uri.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
@@ -87,14 +88,17 @@ function translatable_menu_link_uri_iterate_menu(&$item) {
       $link_entity = \Drupal::service('entity.repository')
         ->loadEntityByUuid('menu_link_content', $link->getDerivativeId());
 
-      // We have entity, now, let's translate it.
-      $translated_entity = \Drupal::service('entity.repository')->getTranslationFromContext($link_entity);
+      if ($link_entity instanceof EntityInterface) {
+        // We have entity, now, let's translate it.
+        $translated_entity = \Drupal::service('entity.repository')->getTranslationFromContext($link_entity);
+
+        /** @var Drupal\link\Plugin\Field\FieldType\Linkitem $url */
+        $url = $translated_entity->link_override->first();
+      }
 
       // We inherit options from current (overriden) element.
       $options = $item['url']->getOptions();
 
-      /** @var Drupal\link\Plugin\Field\FieldType\Linkitem $url */
-      $url = $translated_entity->link_override->first();
       if ($url !== NULL) {
         $item['url'] = $url->isEmpty() ? $item['url'] : $url->getUrl();
       }
