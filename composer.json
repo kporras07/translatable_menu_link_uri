@@ -1,0 +1,10 @@
+{
+    "name": "drupal/translatable_menu_link_uri",
+    "type": "drupal-module",
+    "description": "Translatable Menu Link Uri module for Drupal.",
+    "homepage": "http://drupal.org/project/translatable_menu_link_uri",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^8.8 || ^9"
+    }
+}
